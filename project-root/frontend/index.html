@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Generator</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 10px 40px rgba(0, 0, 0, 0.15); /* Added shadows */
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out; /* Added transition for smooth shadow effect */
+        }
+
+        .form-container:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 20px 60px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+        }
+
+        .form-container h1 {
+            font-size: 2.5em;
+            color: #6A1B9A; /* Purple color */
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="file"] {
+            padding: 8px;
+        }
+
+        .form-group .file-name {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #6A1B9A;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        button {
+            background-color: #6A1B9A;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #9c4e97;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6A1B9A;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Diagram Generator</h1>
+            <form id="diagramForm">
+                <div class="form-group">
+                    <label for="file">Choose File:</label>
+                    <input type="file" id="file" required>
+                    <span class="file-name">No file selected</span>
+                </div>
+                <div class="form-group">
+                    <label for="diagramType">Select Diagram Type:</label>
+                    <select id="diagramType" required>
+                        <option value="">Select a diagram type</option>
+                        <option value="summary">Summary</option>
+                        <option value="class">Class Diagram</option>
+                        <option value="flowchart">Flowchart</option>
+                        <option value="sequence">Sequence Diagram</option>
+                    </select>
+                </div>
+                <button type="submit">Generate Report</button>
+            </form>
+            <div id="loading">
+                <div class="loading-spinner"></div>
+                <p>Generating diagram, please wait...</p>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+        <iframe id="pdfViewer" class="pdf-viewer"></iframe>
+    </div>
+
+    <script>
+        // Check if the user is logged in by verifying the value in localStorage
+        if (!localStorage.getItem("loggedIn")) {
+            // If not logged in, redirect them to the login page
+            window.location.href = "login.html";
+        }
+
+        document.getElementById('diagramForm').addEventListener('submit', function(e) {
+            e.preventDefault();  // Prevent the form from submitting the traditional way
+            document.getElementById('loading').style.display = 'block';  // Show loading spinner
+            
+            // Simulate file upload and processing
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';  // Hide loading spinner
+                //document.getElementById('pdfViewer').src = "path/to/generated_report.pdf";  // Replace with actual PDF path
+            }, 6000);  // Simulate a 3-second delay for demo purposes
+        });
+    </script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
